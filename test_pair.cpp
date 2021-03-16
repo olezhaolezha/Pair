@@ -10,10 +10,53 @@ class Pair {
 public:
     T1 first;
     T2 second;
+
+    Pair () {
+    }
+
+    Pair (T1 x, T2 y){
+        first = x;
+        second = y;
+    }
+
+    Pair <T1, T2> (const Pair <T1, T2>& copied){
+        first = copied.first;
+        second = copied.second;
+    }
+
+    Pair <T1, T2>& operator= (const Pair <T1, T2>& other) {
+        first = other.first;
+        second = other.second;
+        return *this;
+    }
+
+    bool operator< (const Pair& other){
+        if (first > other.first){
+            return false;
+        }
+        if (first < other.first) {
+            return true;
+        }
+        return second<other.second;
+    }
+
 };
 
 template<typename T>
 void mySort(vector<T>& a) {
+    for (int i = 1; i < a.size(); ++ i) {
+        int j = 0;
+        while (!(a[i] < a[j]) && j < i){
+            ++ j;
+        }
+        T x = a[i];
+        int k = i;
+        while (k > j){
+            a[k] = a[k - 1];
+            --k;
+        }
+        a[j] = x;
+    }
 }
 
 int main() {
